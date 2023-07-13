@@ -1,7 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import {Navbar} from "../components/Navbar";
+import Navbar from "../components/Navbar";
 
 describe("Iteration 3", () => {
   describe("Navbar component", () => {
