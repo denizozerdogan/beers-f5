@@ -2,7 +2,7 @@ import  { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-interface BeerDetails {
+export interface BeerDetails {
   name: string;
   image_url: string;
   tagline: string;
