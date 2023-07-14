@@ -8,6 +8,7 @@ import { BeersDetailPage } from './pages/BeersDetailPage'
 import { NotFoundPage } from './pages/NotFoundPage';
 import Navbar from "./components/Navbar";
 
+
 export function App() {
 
   return (
