@@ -13,7 +13,7 @@ export const HomePage = () => {
         <h2>Random Beer</h2>
         <img src="/random-beer.jpg" alt="Random Beer" className="img-fluid img-thumbnail" style={{ maxWidth: '300px' }} />
       </Link>
-      <Link to="/new">
+      <Link to="/new-beer">
         <h2>New Beer</h2>
         <img src="/new-beer.jpg" alt="New Beer" className="img-fluid img-thumbnail" style={{ maxWidth: '300px' }} />
       </Link>
