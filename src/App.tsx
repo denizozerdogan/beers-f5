@@ -6,11 +6,13 @@ import { RandomBeerPage } from './pages/RandomBeerPage'
 import { AddBeerPage } from './pages/AddBeerPage'
 import { BeersDetailPage } from './pages/BeersDetailPage'
 import { NotFoundPage } from './pages/NotFoundPage';
+import Navbar from "./components/Navbar";
 
 export function App() {
 
   return (
     <Router>
+      <Navbar />
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/beers" element={<AllBeersPage/>} />

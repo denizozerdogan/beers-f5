@@ -1,7 +1,15 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import logoNavBar from "../assets/navbarbeer.png"; 
 
-export const Navbar = () => {
+const Navbar: React.FC = () => {
   return (
-    <div>Navbar</div>
-  )
-}
+    <nav>
+      <Link to="/">
+        <img src={logoNavBar} alt="LogoNavBar" />
+      </Link>
+    </nav>
+  );
+};
+
+export default Navbar;
