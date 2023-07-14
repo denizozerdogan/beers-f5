@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 interface Beer {
-  id: number;
+  _id: string;
   image_url: string;
   name: string;
   tagline: string;
@@ -33,12 +33,12 @@ export const AllBeersPage = () => {
       <h1>All Beers</h1>
       <ul>
         {beers.map(beer => (
-          <li key={beer.id}>
+          <li key={beer._id}>
             <img src={beer.image_url} alt={beer.name} />
             <h2>{beer.name}</h2>
             <p>{beer.tagline}</p>
             <p>Contributed by: {beer.contributed_by}</p>
-            <Link to={`/beers/${beer.id}`}>View Details</Link>
+            <Link to={`/beers/${beer._id}`}>View Details</Link>
           </li>
         ))}
       </ul>
