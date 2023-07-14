@@ -18,7 +18,7 @@ export function App() {
         <Route path="/" element={<HomePage/>} />
         <Route path="/beers" element={<AllBeersPage/>} />
         <Route path="/random-beer" element={<RandomBeerPage/>} />
-        <Route path="/new-beer" element={<AddBeerPage/>} />
+        <Route path="/new" element={<AddBeerPage/>} />
         <Route path="/beers/:beerId" element={<BeersDetailPage/>} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
