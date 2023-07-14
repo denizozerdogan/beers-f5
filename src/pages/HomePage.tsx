@@ -1,10 +1,11 @@
+import {Container} from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 export const HomePage = () => {
   return (
-    <div>
+    <Container fluid>
       <h1>Welcome to Beers F5!</h1>
-      <Link to="/beers">
+      <Link to="/beers" >
         <h2>All Beers</h2>
         <img src="/all-beers.jpg" alt="All Beers" />
       </Link>
@@ -16,6 +17,6 @@ export const HomePage = () => {
         <h2>New Beer</h2>
         <img src="/new-beer.jpg" alt="New Beer" />
       </Link>
-    </div>
+    </Container>
   );
 };
