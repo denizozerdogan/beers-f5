@@ -2,14 +2,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import  Beer  from '../../shared/interfaz';
 
-interface Beer {
-  _id: string;
-  image_url: string;
-  name: string;
-  tagline: string;
-  contributed_by: string;
-}
 
 
 export const AllBeersPage = () => {
@@ -18,7 +12,7 @@ export const AllBeersPage = () => {
   useEffect(() => {
     const fetchBeers = async () => {
       try {
-        const response = await axios.get('https://f5-beers-065cad3017be.herokuapp.com/beers');
+        const response = await axios.get('http://localhost:3000/beers');
         setBeers(response.data);
       } catch (error) {
         console.log(error);
