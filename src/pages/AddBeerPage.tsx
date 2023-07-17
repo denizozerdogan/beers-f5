@@ -10,12 +10,12 @@ export const AddBeerPage = () => {
     brewers_tips: "",
     attenuation_level: "",
     contributed_by: "",
-    expireAt: "",
+    /* expireAt: "", */
   };
 
   const [formValues, setFormValues] = useState(initialFormValues);
 
-  const handleInputChange = (
+  const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
@@ -25,12 +25,18 @@ export const AddBeerPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      await axios.post(
+      const response = await axios.post(
         "https://f5-beers-065cad3017be.herokuapp.com/beers",
         formValues
       );
-      alert("New beer successfully saved to the database!");
-      setFormValues(initialFormValues);
+      const requestBody = response?.data; 
+  
+      if (requestBody) {
+        alert("New beer successfully saved to the database!");
+        setFormValues(initialFormValues);
+      } else {
+        throw new Error("Empty response body");
+      }
     } catch (error) {
       alert("Error saving beer to the database.");
       console.error(error);
@@ -47,7 +53,7 @@ export const AddBeerPage = () => {
             id="name"
             name="name"
             value={formValues.name}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -57,7 +63,7 @@ export const AddBeerPage = () => {
             id="tagline"
             name="tagline"
             value={formValues.tagline}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -66,7 +72,7 @@ export const AddBeerPage = () => {
             id="description"
             name="description"
             value={formValues.description}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -76,7 +82,7 @@ export const AddBeerPage = () => {
             id="first_brewed"
             name="first_brewed"
             value={formValues.first_brewed}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -86,7 +92,7 @@ export const AddBeerPage = () => {
             id="brewers_tips"
             name="brewers_tips"
             value={formValues.brewers_tips}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -96,7 +102,7 @@ export const AddBeerPage = () => {
             id="attenuation_level"
             name="attenuation_level"
             value={formValues.attenuation_level}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -106,17 +112,19 @@ export const AddBeerPage = () => {
             id="contributed_by"
             name="contributed_by"
             value={formValues.contributed_by}
-            onChange={handleInputChange}
+            onChange={handleChange}
           />
         </div>
+      {/*   <div>
         <label htmlFor="expireAt">Expire At:</label>
         <input
           type="text"
           id="expireAt"
           name="expireAt"
           value={formValues.expireAt}
-          onChange={handleInputChange}
+          onChange={handleChange}
         />
+        </div> */}
         <button type="submit">Add Beer</button>
       </form>
     </div>

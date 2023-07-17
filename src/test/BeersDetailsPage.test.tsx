@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 import nock, { Scope } from "nock";
 import axios from "axios";
-import App from "../App";
+import {App} from "../App";
 
 const API_URL = "https://f5-beers-065cad3017be.herokuapp.com";
 
