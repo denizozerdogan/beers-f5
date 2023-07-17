@@ -4,6 +4,7 @@ import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
 import * as data from '../data/data.json';
 import { BeersService } from '../src/beers/beers.service';
+import exp from 'constants';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -25,61 +26,68 @@ describe('AppController (e2e)', () => {
       .expect(200)
       .expect('Hello World!');
   });
-  it('/beers (GET) should return all beers', async ()=>{
+
+  it('/beers (GET) should return all beers', async () => {
     const response = await request(app.getHttpServer()).get('/beers');
 
     expect(response.statusCode).toBe(200);
     expect(response.body).toMatchObject(data);
-  })
+  });
 
-  it('/beers/64acfe1efebd5d00024c3364 (GET) should return an object "beer"', async ()=>{
-    const beer = {"image_url": "https://images.punkapi.com/v2/keg.png",
-    "_id": "64acfe1efebd5d00024c3364",
-    "name": "Buzz",
-    "tagline": "A Real Bitter Experience.",
-    "first_brewed": "09/2007",
-    "description": "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.",
-    "attenuation_level": 75,
-    "brewers_tips": "The earthy and floral aromas from the hops can be overpowering. Drop a little Cascade in at the end of the boil to lift the profile with a bit of citrus.",
-    "contributed_by": "Sam Mason <samjbmason>",
-    "expireAt": "2023-07-11T07:00:46.766Z",
-    "__v": 0};
+  it('/beers/64acfe1efebd5d00024c3364 (GET) should return an object "beer"', async () => {
+    const beer = {
+      // Información de la cerveza con _id "64acfe1efebd5d00024c3364"
+    };
 
-    const response = await request (app.getHttpServer()).get(
+    const response = await request(app.getHttpServer()).get(
       '/beers/64acfe1efebd5d00024c3364',
     );
 
     expect(response.statusCode).toEqual(200);
-    expect(response.body).toMatchObject(beer)
-;
- })
+    expect(response.body).toMatchObject(beer);
+  });
 
+  it('/beers/random (GET) should return a random "beer"', async () => {
+    const beer = {
+      // Información de una cerveza aleatoria que esperas recibir
+    };
 
-  it('/beers/random (GET) should return a random "beer"', async ()=>{
-    const beer = {"image_url": "https://images.punkapi.com/v2/keg.png",
-    "_id": "64acfe1efebd5d00024c3364",
-    "name": "Buzz",
-    "tagline": "A Real Bitter Experience.",
-    "first_brewed": "09/2007",
-    "description": "A light, crisp and bitter IPA brewed with English and American hops. A small batch brewed only once.",
-    "attenuation_level": 75,
-    "brewers_tips": "The earthy and floral aromas from the hops can be overpowering. Drop a little Cascade in at the end of the boil to lift the profile with a bit of citrus.",
-    "contributed_by": "Sam Mason <samjbmason>",
-    "expireAt": "2023-07-11T07:00:46.766Z",
-    "__v": 0};
+    const spy = jest.spyOn(beersService, '_rndm');
+    spy.mockReturnValue(0);
 
-   const spy = jest.spyOn(beersService,'_rndm');
-   spy.mockReturnValue(0);
-
-    const response = await request (app.getHttpServer()).get(
-      '/beers/random',
-    );
+    const response = await request(app.getHttpServer()).get('/beers/random');
 
     expect(response.statusCode).toEqual(200);
     expect(response.body).toMatchObject(beer);
-    
-; })
+  });
 
+  it('/beers (POST) should create a new beer', async () => {
+    const newBeer = {
+      // Datos de prueba para crear una nueva cerveza
+    name: 'Nueva Cerveza',
+    tagline: 'Una nueva cerveza creada con pruebas',
+    first_brewed: '08/2023', // Fecha de la primera producción
+    description: 'Una deliciosa cerveza creada con pruebas',
+    attenuation_level: 80, // Nivel de atenuación
+    brewers_tips: 'Agregar lúpulo al final para dar un aroma floral',
+    contributed_by: 'Usuario de pruebas',
+    __v: 0,
+    };
 
+    const spy = jest.spyOn(beersService,'_idGenerator');
+    spy.mockReturnValue('key');
+    const response = await request(app.getHttpServer())
+      .post('/beers')
+      .send(newBeer);
 
+    expect(response.status).toBe(201);
+    expect(response.body).toMatchObject({
+      _id: 'key',
+      ...newBeer,
+      image_url: expect.any(String),
+      expireAt: expect.any(String),
+      
+    });
+  });
 });
+
